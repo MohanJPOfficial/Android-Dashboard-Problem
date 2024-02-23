@@ -1,6 +1,7 @@
 package zuper.dev.android.dashboard.data
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import zuper.dev.android.dashboard.data.model.InvoiceApiModel
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.remote.ApiDataSource
@@ -26,6 +27,6 @@ class DataRepository(private val apiDataSource: ApiDataSource) {
      */
     fun getJobs(): List<JobApiModel> {
         // TODO - Update as per listing page expectations
-        return listOf()
+        return apiDataSource.getJobs()
     }
 }

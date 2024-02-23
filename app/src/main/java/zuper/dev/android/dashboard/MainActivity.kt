@@ -3,20 +3,21 @@ package zuper.dev.android.dashboard
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.remote.ApiDataSource
+import zuper.dev.android.dashboard.presentation.dashboard.DashBoardScreen
 import zuper.dev.android.dashboard.ui.theme.AppTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val rep  = DataRepository(ApiDataSource())
@@ -27,15 +28,11 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
-
-                    lifecycleScope.launch {
-                        rep.observeJobs().collectLatest {
-                            println(it)
-                        }
+                    Box {
+                        DashBoardScreen()
                     }
                 }
             }
