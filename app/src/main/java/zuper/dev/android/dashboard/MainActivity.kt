@@ -15,12 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import zuper.dev.android.dashboard.data.DataRepository
 import zuper.dev.android.dashboard.data.remote.ApiDataSource
 import zuper.dev.android.dashboard.presentation.dashboard.DashBoardScreen
+import zuper.dev.android.dashboard.presentation.jobs.JobsScreen
 import zuper.dev.android.dashboard.ui.theme.AppTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val rep  = DataRepository(ApiDataSource())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Box {
-                        DashBoardScreen()
+                        JobsScreen()
                     }
                 }
             }

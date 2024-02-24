@@ -13,13 +13,13 @@ import kotlinx.coroutines.flow.update
 import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
 import zuper.dev.android.dashboard.domain.usecase.InvoiceStatsUseCase
-import zuper.dev.android.dashboard.domain.usecase.JobStatsUseCase
+import zuper.dev.android.dashboard.domain.usecase.RealtimeJobStatsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val invoiceStatsUseCase: InvoiceStatsUseCase,
-    private val jobStatsUseCase: JobStatsUseCase
+    private val realtimeJobStatsUseCase: RealtimeJobStatsUseCase
 ): ViewModel() {
 
     //job
@@ -44,7 +44,7 @@ class DashboardViewModel @Inject constructor(
             _invoiceStateListFlow.update { invoiceStateList }
         }.launchIn(viewModelScope)
 
-        jobStatsUseCase.invoke().onEach { jobStateList ->
+        realtimeJobStatsUseCase.invoke().onEach { jobStateList ->
             _jobStateListFlow.update { jobStateList }
         }.launchIn(viewModelScope)
     }
