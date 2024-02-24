@@ -14,6 +14,7 @@ import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
 import zuper.dev.android.dashboard.domain.usecase.InvoiceStatsUseCase
 import zuper.dev.android.dashboard.domain.usecase.RealtimeJobStatsUseCase
+import zuper.dev.android.dashboard.presentation.util.DateUtils
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,30 +23,36 @@ class DashboardViewModel @Inject constructor(
     private val realtimeJobStatsUseCase: RealtimeJobStatsUseCase
 ): ViewModel() {
 
-    //job
-    private val _jobStateListFlow = MutableStateFlow(listOf<JobStatsModel>())
-    val jobStateListFlow = _jobStateListFlow.stateIn(
+    //ui state
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = listOf()
-    )
-
-    //invoice
-    private val _invoiceStateListFlow = MutableStateFlow(listOf<InvoiceStatsModel>())
-    val invoiceStateListFlow: StateFlow<List<InvoiceStatsModel>> = _invoiceStateListFlow.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList()
+        initialValue = UiState()
     )
 
     init {
 
-        invoiceStatsUseCase.invoke().onEach { invoiceStateList ->
-            _invoiceStateListFlow.update { invoiceStateList }
+        realtimeJobStatsUseCase.invoke().onEach { jobStatsList ->
+            _uiState.update {
+                it.copy(
+                    jobStatsList = jobStatsList
+                )
+            }
         }.launchIn(viewModelScope)
 
-        realtimeJobStatsUseCase.invoke().onEach { jobStateList ->
-            _jobStateListFlow.update { jobStateList }
+        invoiceStatsUseCase.invoke().onEach { invoiceStatsList ->
+            _uiState.update {
+                it.copy(
+                    invoiceStatsList = invoiceStatsList
+                )
+            }
         }.launchIn(viewModelScope)
     }
+
+    data class UiState(
+        val todayDate: String = DateUtils.getTodayDate(),
+        val jobStatsList: List<JobStatsModel> = emptyList(),
+        val invoiceStatsList: List<InvoiceStatsModel> = emptyList()
+    )
 }

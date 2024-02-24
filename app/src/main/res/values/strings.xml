@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">android-dashboard-problem</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="invoice_states">Invoice States</string>
+    <string name="total_value">Total value ($%1$s)</string>
+    <string name="job_stats">Job Stats</string>
+    <string name="total_jobs">%1$s Jobs</string>
+    <string name="completed_jobs">%1$s of %2$s completed</string>
+    <string name="collected_value">$%1$s collected</string>
 </resources>

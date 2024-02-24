@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -24,29 +25,27 @@ fun ChartItem(
     status: String = "Completed",
     totalCount: String = "30"
 ) {
-    Surface(
+    Row(
         modifier = modifier
-            .padding(5.dp),
-        color = Color.Transparent
+            .padding(5.dp)
     ) {
-        Row {
-            Box(
-                modifier = Modifier
-                    .size(15.dp)
-                    .align(Alignment.CenterVertically)
-                    .clip(RoundedCornerShape(3.dp))
-                    .background(color)
-            )
+        Box(
+            modifier = Modifier
+                .size(15.dp)
+                .align(Alignment.CenterVertically)
+                .clip(RoundedCornerShape(3.dp))
+                .background(color)
+        )
 
-            Text(
-                text = "$status ($totalCount)",
-                modifier = Modifier
-                    .padding(horizontal = 5.dp)
-                    .align(Alignment.CenterVertically),
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray
-            )
-        }
+        Text(
+            text = "$status ($totalCount)",
+            modifier = Modifier
+                .padding(horizontal = 5.dp)
+                .align(Alignment.CenterVertically),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.outline,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 

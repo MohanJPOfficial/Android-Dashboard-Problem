@@ -1,5 +1,8 @@
 package zuper.dev.android.dashboard.presentation.dashboard.components
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,8 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
 
@@ -28,96 +34,102 @@ fun InvoiceStatesItem(
     modifier: Modifier = Modifier,
     invoiceStateList: List<InvoiceStatsModel>
 ) {
-    Surface(
-        shape = MaterialTheme.shapes.extraSmall,
-        color = MaterialTheme.colorScheme.inverseOnSurface,
+    Column(
         modifier = modifier
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(4.dp))
+            .border(
+                border = BorderStroke(0.5.dp, MaterialTheme.colorScheme.outlineVariant),
+                shape = RoundedCornerShape(4.dp),
+            )
+            .padding(vertical = 10.dp)
     ) {
-        Column(
+        Text(
+            text = stringResource(R.string.invoice_states),
             modifier = Modifier
-                .padding(vertical = 10.dp)
+                .padding(start = 10.dp, bottom = 10.dp),
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Divider(modifier = Modifier
+            .fillMaxWidth(),
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .padding(top = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Invoice States",
-                modifier = Modifier
-                    .padding(start = 10.dp, bottom = 10.dp),
-                style = MaterialTheme.typography.titleMedium
+                text = stringResource(
+                    R.string.total_value,
+                    invoiceStateList.sumOf { it.totalSum }
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.outline,
+                fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.width(4.dp))
-
-            Divider(modifier = Modifier
-                .fillMaxWidth(),
-                color = Color.Gray
+            Text(
+                text = stringResource(
+                    R.string.collected_value,
+                    invoiceStateList.find { it.invoiceStatus == InvoiceStatus.Paid }?.totalSum ?: 0
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.outline,
+                fontWeight = FontWeight.Bold
             )
+        }
 
+        if(invoiceStateList.isEmpty())
+            return@Column
+
+        InvoiceStateBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .height(25.dp)
+                .clip(RoundedCornerShape(5.dp)),
+            invoiceStateList = invoiceStateList
+        )
+
+        Column {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .padding(top = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "Total value ($${invoiceStateList.sumOf { it.totalSum }})",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
+                ChartItem(
+                    color = invoiceStateList[0].color,
+                    status = invoiceStateList[0].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[0].totalSum}"
                 )
-
-                Text(
-                    text = "$${invoiceStateList.find { it.invoiceStatus == InvoiceStatus.Paid }?.totalSum} collected",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
+                ChartItem(
+                    color = invoiceStateList[1].color,
+                    status = invoiceStateList[1].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[1].totalSum}"
                 )
             }
 
-            if(invoiceStateList.isEmpty())
-                return@Column
-
-            InvoiceStateBar(
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .height(25.dp)
-                    .clip(RoundedCornerShape(5.dp)),
-                invoiceStateList = invoiceStateList
-            )
-
-            Column {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    ChartItem(
-                        color = invoiceStateList[0].color,
-                        status = invoiceStateList[0].invoiceStatus.name,
-                        totalCount = "$${invoiceStateList[0].totalSum}"
-                    )
-                    ChartItem(
-                        color = invoiceStateList[1].color,
-                        status = invoiceStateList[1].invoiceStatus.name,
-                        totalCount = "$${invoiceStateList[1].totalSum}"
-                    )
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    ChartItem(
-                        color = invoiceStateList[2].color,
-                        status = invoiceStateList[2].invoiceStatus.name,
-                        totalCount = "$${invoiceStateList[2].totalSum}"
-                    )
-                    ChartItem(
-                        color = invoiceStateList[3].color,
-                        status = invoiceStateList[3].invoiceStatus.name,
-                        totalCount = "$${invoiceStateList[3].totalSum}"
-                    )
-                }
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                ChartItem(
+                    color = invoiceStateList[2].color,
+                    status = invoiceStateList[2].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[2].totalSum}"
+                )
+                ChartItem(
+                    color = invoiceStateList[3].color,
+                    status = invoiceStateList[3].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[3].totalSum}"
+                )
             }
         }
     }

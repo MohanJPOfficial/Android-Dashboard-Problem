@@ -1,5 +1,8 @@
 package zuper.dev.android.dashboard.presentation.jobs.components
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,8 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
 import zuper.dev.android.dashboard.presentation.dashboard.SampleData
@@ -30,47 +36,48 @@ fun JobStatsItem(
     modifier: Modifier = Modifier,
     jobStatsList: List<JobStatsModel>
 ) {
-    Surface(
-        shape = MaterialTheme.shapes.extraSmall,
+    Column(
         modifier = modifier
+            .padding(vertical = 15.dp)
     ) {
-        Column(
+
+        Row(
             modifier = Modifier
-                .padding(vertical = 15.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
+            Text(
+                text = stringResource(R.string.total_jobs, jobStatsList.sumOf { it.totalSum }),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.outline,
+                fontWeight = FontWeight.Bold
+            )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "${jobStatsList.sumOf { it.totalSum }} Jobs",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
-                )
-
-                Text(
-                    text = "${jobStatsList.find { it.jobStatus == JobStatus.Completed }?.totalSum} of ${jobStatsList.sumOf { it.totalSum }} completed",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
-                )
-            }
-
-            if(jobStatsList.isEmpty())
-                return@Column
-
-            JobStateBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .height(25.dp)
-                    .clip(RoundedCornerShape(5.dp)),
-                list = jobStatsList
+            Text(
+                text = stringResource(
+                    R.string.completed_jobs,
+                    jobStatsList.find { it.jobStatus == JobStatus.Completed }?.totalSum ?: 0,
+                    jobStatsList.sumOf { it.totalSum }
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.outline,
+                fontWeight = FontWeight.Bold
             )
         }
+
+        if(jobStatsList.isEmpty())
+            return@Column
+
+        JobStateBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .height(25.dp)
+                .clip(RoundedCornerShape(5.dp)),
+            list = jobStatsList
+        )
     }
 }
 

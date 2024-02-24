@@ -10,13 +10,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.presentation.dashboard.components.GreetingItem
 import zuper.dev.android.dashboard.presentation.dashboard.components.InvoiceStatesItem
 import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsItem
@@ -29,8 +30,7 @@ fun DashBoardScreen(
     viewModel: DashboardViewModel = hiltViewModel()
 ) {
 
-    val jobStateList by viewModel.jobStateListFlow.collectAsState()
-    val invoiceStateList by viewModel.invoiceStateListFlow.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Surface(
         color = MaterialTheme.colorScheme.onSecondary,
@@ -39,9 +39,16 @@ fun DashBoardScreen(
     ) {
         Column {
             TopBar()
+
+            Divider(modifier = Modifier
+                .fillMaxWidth()
+            )
+
             GreetingItem(
                 modifier = modifier
-                    .padding(10.dp)
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                todayDate = uiState.todayDate
             )
 
             JobStatsItem(
@@ -50,13 +57,13 @@ fun DashBoardScreen(
                     .clickable {
                         navHostController.navigate(route = Screen.JOBS.routeName)
                     },
-                jobStatsList = jobStateList
+                jobStatsList = uiState.jobStatsList
             )
 
             InvoiceStatesItem(
                 modifier = modifier
                     .padding(10.dp),
-                invoiceStateList = invoiceStateList
+                invoiceStateList = uiState.invoiceStatsList
             )
         }
     }
@@ -68,19 +75,13 @@ fun TopBar(
 ) {
     Column(
         modifier = modifier
-            .padding(top = 20.dp)
+            .padding(15.dp)
+            .padding(top = 10.dp)
             .fillMaxWidth()
     ) {
         Text(
-            text = "Dashboard",
-            modifier = Modifier
-                .padding(10.dp),
-            style = MaterialTheme.typography.titleMedium
-        )
-
-        Divider(modifier = Modifier
-            .fillMaxWidth(),
-            color = Color.Gray
+            text = stringResource(R.string.dashboard),
+            style = MaterialTheme.typography.titleMedium,
         )
     }
 }
