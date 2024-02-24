@@ -23,13 +23,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.data.model.JobStatus
-import zuper.dev.android.dashboard.domain.model.JobStatsModel
+import zuper.dev.android.dashboard.data.model.InvoiceStatus
+import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
 
 @Composable
-fun JobStatsItem(
+fun InvoiceStatesItem(
     modifier: Modifier = Modifier,
-    jobStatsList: List<JobStatsModel>
+    invoiceStateList: List<InvoiceStatsModel>
 ) {
     Column(
         modifier = modifier
@@ -41,7 +41,7 @@ fun JobStatsItem(
             .padding(vertical = 10.dp)
     ) {
         Text(
-            text = stringResource(R.string.job_stats),
+            text = stringResource(R.string.invoice_states),
             modifier = Modifier
                 .padding(start = 10.dp, bottom = 10.dp),
             style = MaterialTheme.typography.titleMedium
@@ -50,7 +50,7 @@ fun JobStatsItem(
         Spacer(modifier = Modifier.height(4.dp))
 
         Divider(modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
         )
 
         Row(
@@ -62,7 +62,10 @@ fun JobStatsItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(R.string.total_jobs, jobStatsList.sumOf { it.totalSum }),
+                text = stringResource(
+                    R.string.total_value,
+                    invoiceStateList.sumOf { it.totalSum }
+                ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
                 fontWeight = FontWeight.Bold
@@ -70,9 +73,8 @@ fun JobStatsItem(
 
             Text(
                 text = stringResource(
-                    R.string.completed_jobs,
-                    jobStatsList.find { it.jobStatus == JobStatus.Completed }?.totalSum ?: 0,
-                    jobStatsList.sumOf { it.totalSum }
+                    R.string.collected_value,
+                    invoiceStateList.find { it.invoiceStatus == InvoiceStatus.Paid }?.totalSum ?: 0
                 ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
@@ -80,16 +82,16 @@ fun JobStatsItem(
             )
         }
 
-        if(jobStatsList.isEmpty())
+        if(invoiceStateList.isEmpty())
             return@Column
 
-        JobStateBar(
+        InvoiceStateBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
                 .height(25.dp)
                 .clip(RoundedCornerShape(5.dp)),
-            list = jobStatsList
+            invoiceStateList = invoiceStateList
         )
 
         Column {
@@ -99,31 +101,14 @@ fun JobStatsItem(
                 horizontalArrangement = Arrangement.Center
             ) {
                 ChartItem(
-                    color = jobStatsList[0].color,
-                    status = jobStatsList[0].jobStatus.status,
-                    totalCount = jobStatsList[0].totalSum.toString()
+                    color = invoiceStateList[0].color,
+                    status = invoiceStateList[0].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[0].totalSum}"
                 )
                 ChartItem(
-                    color = jobStatsList[1].color,
-                    status = jobStatsList[1].jobStatus.status,
-                    totalCount = jobStatsList[1].totalSum.toString()
-                )
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                ChartItem(
-                    color = jobStatsList[2].color,
-                    status = jobStatsList[2].jobStatus.status,
-                    totalCount = jobStatsList[2].totalSum.toString()
-                )
-                ChartItem(
-                    color = jobStatsList[3].color,
-                    status = jobStatsList[3].jobStatus.status,
-                    totalCount = jobStatsList[3].totalSum.toString()
+                    color = invoiceStateList[1].color,
+                    status = invoiceStateList[1].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[1].totalSum}"
                 )
             }
 
@@ -133,11 +118,25 @@ fun JobStatsItem(
                 horizontalArrangement = Arrangement.Center
             ) {
                 ChartItem(
-                    color = jobStatsList[4].color,
-                    status = jobStatsList[4].jobStatus.status,
-                    totalCount = jobStatsList[4].totalSum.toString()
+                    color = invoiceStateList[2].color,
+                    status = invoiceStateList[2].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[2].totalSum}"
+                )
+                ChartItem(
+                    color = invoiceStateList[3].color,
+                    status = invoiceStateList[3].invoiceStatus.name,
+                    totalCount = "$${invoiceStateList[3].totalSum}"
                 )
             }
         }
     }
 }
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun InvoiceStatesItemPreview() {
+    InvoiceStatesItem(invoiceStateList = emptyList())
+}
+

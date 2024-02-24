@@ -7,19 +7,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.tooling.preview.Preview
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
 
 @Composable
-fun JobStateBar(
+fun JobStatsBar(
     modifier: Modifier = Modifier,
-    list: List<JobStatsModel>
+    jobStatsList: List<JobStatsModel>
 ) {
-    if(list.isEmpty())
+    if(jobStatsList.isEmpty())
         return
 
-    val totalJobs = list.sumOf { it.totalSum }
+    val totalJobs = jobStatsList.sumOf { it.totalSum }
 
     val yetToStartWidthRatio = remember {
         Animatable(0f)
@@ -41,7 +40,7 @@ fun JobStateBar(
         Animatable(0f)
     }
 
-    list.forEach { jobCategory ->
+    jobStatsList.forEach { jobCategory ->
         when(jobCategory.jobStatus) {
             JobStatus.YetToStart -> {
                 LaunchedEffect(key1 = jobCategory.totalSum) {
@@ -93,7 +92,7 @@ fun JobStateBar(
 
         for(index in sortedList.indices) {
             drawRoundRect(
-                color = list[index].color,
+                color = jobStatsList[index].color,
                 size = Size(
                     width = sortedList.subList(index, sortedList.size).sum(),
                     height = size.height

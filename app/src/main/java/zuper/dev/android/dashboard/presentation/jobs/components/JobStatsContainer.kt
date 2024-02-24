@@ -17,12 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
-import zuper.dev.android.dashboard.presentation.dashboard.components.JobStateBar
+import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsBar
 
 @Composable
-fun JobStatsItem(
+fun JobStatsContainer(
     modifier: Modifier = Modifier,
     totalJobCount: Int,
     completedJobCount: Int,
@@ -62,13 +61,13 @@ fun JobStatsItem(
         if(jobStatsList.isEmpty())
             return@Column
 
-        JobStateBar(
+        JobStatsBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
                 .height(25.dp)
                 .clip(RoundedCornerShape(5.dp)),
-            list = jobStatsList
+            jobStatsList = jobStatsList
         )
     }
 }
