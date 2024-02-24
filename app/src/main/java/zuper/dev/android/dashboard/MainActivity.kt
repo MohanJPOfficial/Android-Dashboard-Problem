@@ -3,24 +3,26 @@ package zuper.dev.android.dashboard
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import zuper.dev.android.dashboard.data.DataRepository
-import zuper.dev.android.dashboard.data.remote.ApiDataSource
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import zuper.dev.android.dashboard.presentation.navigation.SetupNavGraph
 import zuper.dev.android.dashboard.ui.theme.AppTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val rep  = DataRepository(ApiDataSource())
-
+    private lateinit var navHostController: NavHostController
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,31 +32,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
-
-                    lifecycleScope.launch {
-                        rep.observeJobs().collectLatest {
-                            println(it)
-                        }
-                    }
+                    navHostController = rememberNavController()
+                    SetupNavGraph(navHostController = navHostController)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppTheme {
-        Greeting("Android")
     }
 }
