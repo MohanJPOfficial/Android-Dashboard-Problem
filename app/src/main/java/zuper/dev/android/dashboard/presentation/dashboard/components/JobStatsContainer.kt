@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
-import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsBar
 
 @Composable
 fun JobStatsContainer(

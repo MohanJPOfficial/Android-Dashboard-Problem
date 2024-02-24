@@ -22,7 +22,7 @@ import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsIte
 import zuper.dev.android.dashboard.presentation.navigation.Screen
 
 @Composable
-fun DashBoardScreen(
+fun DashboardScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     viewModel: DashboardViewModel = hiltViewModel()

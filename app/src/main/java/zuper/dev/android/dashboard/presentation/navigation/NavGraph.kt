@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import zuper.dev.android.dashboard.presentation.dashboard.DashBoardScreen
+import zuper.dev.android.dashboard.presentation.dashboard.DashboardScreen
 import zuper.dev.android.dashboard.presentation.jobs.JobsScreen
 
 @Composable
@@ -18,7 +18,7 @@ fun SetupNavGraph(
         composable(
             route = Screen.DASHBOARD.routeName
         ) {
-            DashBoardScreen(navHostController = navHostController)
+            DashboardScreen(navHostController = navHostController)
         }
 
         composable(
