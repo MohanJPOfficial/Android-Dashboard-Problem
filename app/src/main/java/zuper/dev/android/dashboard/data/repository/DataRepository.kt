@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.data
+package zuper.dev.android.dashboard.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first

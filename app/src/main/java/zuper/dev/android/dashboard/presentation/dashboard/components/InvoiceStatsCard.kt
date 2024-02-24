@@ -29,7 +29,9 @@ import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
 @Composable
 fun InvoiceStatesItem(
     modifier: Modifier = Modifier,
-    invoiceStateList: List<InvoiceStatsModel>
+    invoiceStateList: List<InvoiceStatsModel>,
+    totalInvoiceValue: Int,
+    collectedInvoiceValue: Int
 ) {
     Column(
         modifier = modifier
@@ -64,7 +66,7 @@ fun InvoiceStatesItem(
             Text(
                 text = stringResource(
                     R.string.total_value,
-                    invoiceStateList.sumOf { it.totalSum }
+                    totalInvoiceValue
                 ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
@@ -74,7 +76,7 @@ fun InvoiceStatesItem(
             Text(
                 text = stringResource(
                     R.string.collected_value,
-                    invoiceStateList.find { it.invoiceStatus == InvoiceStatus.Paid }?.totalSum ?: 0
+                    collectedInvoiceValue
                 ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
@@ -130,13 +132,5 @@ fun InvoiceStatesItem(
             }
         }
     }
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-fun InvoiceStatesItemPreview() {
-    InvoiceStatesItem(invoiceStateList = emptyList())
 }
 

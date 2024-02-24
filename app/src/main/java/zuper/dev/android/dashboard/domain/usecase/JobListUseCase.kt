@@ -1,6 +1,6 @@
 package zuper.dev.android.dashboard.domain.usecase
 
-import zuper.dev.android.dashboard.data.DataRepository
+import zuper.dev.android.dashboard.data.repository.DataRepository
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel

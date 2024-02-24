@@ -58,13 +58,17 @@ fun DashBoardScreen(
                     .clickable {
                         navHostController.navigate(route = Screen.JOBS.routeName)
                     },
-                jobStatsList = uiState.jobStatsList
+                jobStatsList = uiState.jobStatsList,
+                totalJobCount = uiState.totalJobCount,
+                completedJobCount = uiState.completedJobCount
             )
 
             InvoiceStatesItem(
                 modifier = modifier
                     .padding(10.dp),
-                invoiceStateList = uiState.invoiceStatsList
+                invoiceStateList = uiState.invoiceStatsList,
+                totalInvoiceValue = uiState.totalInvoiceValue,
+                collectedInvoiceValue = uiState.collectedInvoiceValue
             )
         }
     }

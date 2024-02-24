@@ -19,13 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
 
 @Composable
 fun JobStatsItem(
     modifier: Modifier = Modifier,
-    jobStatsList: List<JobStatsModel>
+    jobStatsList: List<JobStatsModel>,
+    totalJobCount: Int,
+    completedJobCount: Int
 ) {
     Column(
         modifier = modifier
@@ -53,8 +54,8 @@ fun JobStatsItem(
             return@Column
 
         JobStatsContainer(
-            totalJobCount = jobStatsList.sumOf { it.totalSum },
-            completedJobCount = jobStatsList.find { it.jobStatus == JobStatus.Completed }?.totalSum ?: 0,
+            totalJobCount = totalJobCount,
+            completedJobCount = completedJobCount,
             jobStatsList = jobStatsList
         )
 

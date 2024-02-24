@@ -2,7 +2,7 @@ package zuper.dev.android.dashboard.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import zuper.dev.android.dashboard.data.DataRepository
+import zuper.dev.android.dashboard.data.repository.DataRepository
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
 import zuper.dev.android.dashboard.ui.theme.Green
@@ -12,7 +12,7 @@ import zuper.dev.android.dashboard.ui.theme.SkyBlue
 import zuper.dev.android.dashboard.ui.theme.Yellow
 import javax.inject.Inject
 
-class RealtimeJobStatsUseCase @Inject constructor(
+class JobStatsUseCase @Inject constructor(
     private val dataRepository: DataRepository
 ) {
     operator fun invoke(): Flow<List<JobStatsModel>> {

@@ -2,7 +2,7 @@ package zuper.dev.android.dashboard.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import zuper.dev.android.dashboard.data.DataRepository
+import zuper.dev.android.dashboard.data.repository.DataRepository
 import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
 import zuper.dev.android.dashboard.ui.theme.Green
