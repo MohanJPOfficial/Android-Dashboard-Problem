@@ -35,6 +35,7 @@ fun GreetingItem(
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(4.dp))
             .border(
@@ -45,7 +46,7 @@ fun GreetingItem(
     ) {
         Column {
             Text(
-                text = "Hello, Henry Jones!",
+                text = "Hello, Groot!",
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -60,10 +61,10 @@ fun GreetingItem(
         }
 
         Image(
-            painter = painterResource(id = R.drawable.sample_dp),
+            painter = painterResource(id = R.drawable.groot),
             contentDescription = stringResource(R.string.profile_picture),
             modifier = Modifier
-                .size(40.dp)
+                .size(50.dp)
                 .clip(RoundedCornerShape(3.dp))
                 .align(Alignment.CenterVertically)
 
