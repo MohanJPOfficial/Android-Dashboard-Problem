@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,12 +25,11 @@ import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
-import zuper.dev.android.dashboard.presentation.dashboard.SampleData
 
 @Composable
 fun JobStatsItem(
     modifier: Modifier = Modifier,
-    jobStatsList: List<JobStatsModel> = SampleData.list
+    jobStatsList: List<JobStatsModel>
 ) {
     Column(
         modifier = modifier
@@ -102,12 +100,12 @@ fun JobStatsItem(
             ) {
                 ChartItem(
                     color = jobStatsList[0].color,
-                    status = jobStatsList[0].jobStatus.name,
+                    status = jobStatsList[0].jobStatus.status,
                     totalCount = jobStatsList[0].totalSum.toString()
                 )
                 ChartItem(
                     color = jobStatsList[1].color,
-                    status = jobStatsList[1].jobStatus.name,
+                    status = jobStatsList[1].jobStatus.status,
                     totalCount = jobStatsList[1].totalSum.toString()
                 )
             }
@@ -119,12 +117,12 @@ fun JobStatsItem(
             ) {
                 ChartItem(
                     color = jobStatsList[2].color,
-                    status = jobStatsList[2].jobStatus.name,
+                    status = jobStatsList[2].jobStatus.status,
                     totalCount = jobStatsList[2].totalSum.toString()
                 )
                 ChartItem(
                     color = jobStatsList[3].color,
-                    status = jobStatsList[3].jobStatus.name,
+                    status = jobStatsList[3].jobStatus.status,
                     totalCount = jobStatsList[3].totalSum.toString()
                 )
             }
@@ -136,19 +134,10 @@ fun JobStatsItem(
             ) {
                 ChartItem(
                     color = jobStatsList[4].color,
-                    status = jobStatsList[4].jobStatus.name,
+                    status = jobStatsList[4].jobStatus.status,
                     totalCount = jobStatsList[4].totalSum.toString()
                 )
             }
         }
     }
 }
-
-@Preview(
-    showBackground = true
-)
-@Composable
-fun PreviewJobStates() {
-    JobStatsItem()
-}
-

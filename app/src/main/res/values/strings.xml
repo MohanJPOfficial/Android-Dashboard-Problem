@@ -8,4 +8,6 @@
     <string name="total_jobs">%1$s Jobs</string>
     <string name="completed_jobs">%1$s of %2$s completed</string>
     <string name="collected_value">$%1$s collected</string>
+    <string name="jobs_screen_header">Jobs (%1$s)</string>
+    <string name="content_desc_back">Back</string>
 </resources>

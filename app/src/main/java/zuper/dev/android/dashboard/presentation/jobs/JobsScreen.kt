@@ -16,8 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,7 +32,6 @@ import zuper.dev.android.dashboard.presentation.jobs.components.JobStatsItem
 import zuper.dev.android.dashboard.presentation.jobs.components.TopBar
 import zuper.dev.android.dashboard.presentation.util.DateUtils
 import zuper.dev.android.dashboard.presentation.util.withHashTag
-import zuper.dev.android.dashboard.ui.theme.Purple40
 
 @Composable
 fun JobsScreen(
@@ -63,6 +60,8 @@ fun JobsScreen(
             JobStatsItem(
                 modifier = Modifier
                     .padding(10.dp),
+                totalJobCount = uiState.totalJobCount,
+                completedJobCount = uiState.completedJobCount,
                 jobStatsList = uiState.jobStatsList.sortedBy { it.totalSum }
             )
             Divider(modifier = Modifier

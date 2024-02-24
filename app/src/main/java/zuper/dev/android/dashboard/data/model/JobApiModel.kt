@@ -17,8 +17,8 @@ data class JobApiModel(
 
 enum class JobStatus(val status: String) {
     YetToStart("Yet to start"),
-    InProgress("In-progress"),
+    InProgress("In-Progress"),
     Canceled("Cancelled"),
     Completed("Completed"),
-    Incomplete("Incomplete")
+    Incomplete("In-complete")
 }

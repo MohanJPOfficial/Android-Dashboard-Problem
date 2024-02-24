@@ -10,12 +10,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.tooling.preview.Preview
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
-import zuper.dev.android.dashboard.presentation.dashboard.SampleData
 
 @Composable
 fun JobStateBar(
     modifier: Modifier = Modifier,
-    list: List<JobStatsModel> = SampleData.list.sortedBy { it.totalSum }
+    list: List<JobStatsModel>
 ) {
     if(list.isEmpty())
         return
@@ -102,12 +101,4 @@ fun JobStateBar(
             )
         }
     }
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-fun PreviewJobStateBar() {
-    JobStateBar()
 }

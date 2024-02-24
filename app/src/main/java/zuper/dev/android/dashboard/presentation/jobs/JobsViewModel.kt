@@ -34,9 +34,10 @@ class JobsViewModel @Inject constructor(
     init {
         jobList = jobListUseCase.invoke()
 
-        _uiState.update {
-            it.copy(
-                totalJobCount = jobList.size
+        _uiState.update { uiState ->
+            uiState.copy(
+                totalJobCount = jobList.size,
+                completedJobCount = jobList.filter { it.status == JobStatus.Completed }.size
             )
         }
 
@@ -78,6 +79,7 @@ class JobsViewModel @Inject constructor(
 
     data class UiState(
         val totalJobCount: Int = 0,
+        val completedJobCount: Int = 0,
         val jobStatsList: List<JobStatsModel> = emptyList(),
         val filteredJobList: List<JobApiModel> = emptyList(),
         val selectedTabIndex: Int = 0

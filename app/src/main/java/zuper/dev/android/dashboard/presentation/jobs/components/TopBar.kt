@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import zuper.dev.android.dashboard.R
 
 @Composable
 fun TopBar(
@@ -36,14 +38,14 @@ fun TopBar(
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back",
+                contentDescription = stringResource(R.string.content_desc_back),
                 modifier = Modifier
                     .clickable {
                         onBackButtonClick()
                     }
             )
             Text(
-                text = "Jobs ($jobCount)",
+                text = stringResource(R.string.jobs_screen_header, jobCount),
                 modifier = Modifier
                     .padding(start = 10.dp),
                 style = MaterialTheme.typography.titleMedium,
