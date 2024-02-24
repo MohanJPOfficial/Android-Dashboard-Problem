@@ -43,7 +43,7 @@ fun GreetingItem(
     ) {
         Column {
             Text(
-                text = "Hello, Groot!",
+                text = "Hello, Groot! 👋",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.W900
             )
