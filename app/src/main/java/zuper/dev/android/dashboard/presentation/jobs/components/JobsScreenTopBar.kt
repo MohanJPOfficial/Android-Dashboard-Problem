@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
 
 @Composable
-fun TopBar(
+fun JobsScreenTopBar(
     modifier: Modifier = Modifier,
     jobCount: Int,
     onBackButtonClick: () -> Unit

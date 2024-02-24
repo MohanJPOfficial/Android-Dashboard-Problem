@@ -17,7 +17,7 @@ import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.presentation.jobs.components.JobItemList
 import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsContainer
 import zuper.dev.android.dashboard.presentation.jobs.components.TabRowItems
-import zuper.dev.android.dashboard.presentation.jobs.components.TopBar
+import zuper.dev.android.dashboard.presentation.jobs.components.JobsScreenTopBar
 
 @Composable
 fun JobsScreen(
@@ -33,7 +33,7 @@ fun JobsScreen(
             .fillMaxSize()
     ) {
         Column {
-            TopBar(
+            JobsScreenTopBar(
                 jobCount = uiState.totalJobCount,
                 onBackButtonClick = {
                     navHostController.navigateUp()
