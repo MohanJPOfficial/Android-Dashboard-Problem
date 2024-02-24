@@ -20,11 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
-import zuper.dev.android.dashboard.data.model.InvoiceStatus
 import zuper.dev.android.dashboard.domain.model.InvoiceStatsModel
+import zuper.dev.android.dashboard.presentation.util.withComma
 
 @Composable
 fun InvoiceStatesItem(
@@ -66,7 +65,7 @@ fun InvoiceStatesItem(
             Text(
                 text = stringResource(
                     R.string.total_value,
-                    totalInvoiceValue
+                    totalInvoiceValue.withComma()
                 ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
@@ -76,7 +75,7 @@ fun InvoiceStatesItem(
             Text(
                 text = stringResource(
                     R.string.collected_value,
-                    collectedInvoiceValue
+                    collectedInvoiceValue.withComma()
                 ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
