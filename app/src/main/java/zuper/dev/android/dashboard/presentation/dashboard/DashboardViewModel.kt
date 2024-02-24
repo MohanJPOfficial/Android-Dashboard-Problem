@@ -19,8 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val invoiceStatsUseCase: InvoiceStatsUseCase,
-    private val realtimeJobStatsUseCase: RealtimeJobStatsUseCase
+    realtimeJobStatsUseCase: RealtimeJobStatsUseCase,
+    invoiceStatsUseCase: InvoiceStatsUseCase
 ): ViewModel() {
 
     //ui state
