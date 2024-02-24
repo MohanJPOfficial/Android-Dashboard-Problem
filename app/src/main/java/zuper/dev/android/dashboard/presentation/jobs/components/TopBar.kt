@@ -1,5 +1,6 @@
 package zuper.dev.android.dashboard.presentation.jobs.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ fun TopBar(
 ) {
     Column(
         modifier = modifier
+            .background(color = MaterialTheme.colorScheme.background)
             .fillMaxWidth()
     ) {
         Row(

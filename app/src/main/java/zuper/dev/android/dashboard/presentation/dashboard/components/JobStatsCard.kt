@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.data.model.JobStatus
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
-import zuper.dev.android.dashboard.presentation.jobs.components.JobStatsContainer
 
 @Composable
 fun JobStatsItem(
@@ -49,45 +48,6 @@ fun JobStatsItem(
         Divider(modifier = Modifier
             .fillMaxWidth()
         )
-
-       /* Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .padding(top = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.total_jobs, jobStatsList.sumOf { it.totalSum }),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.outline,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = stringResource(
-                    R.string.completed_jobs,
-                    jobStatsList.find { it.jobStatus == JobStatus.Completed }?.totalSum ?: 0,
-                    jobStatsList.sumOf { it.totalSum }
-                ),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.outline,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        if(jobStatsList.isEmpty())
-            return@Column
-
-        JobStateBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-                .height(25.dp)
-                .clip(RoundedCornerShape(5.dp)),
-            jobStatsList = jobStatsList
-        )*/
 
         if(jobStatsList.isEmpty())
             return@Column

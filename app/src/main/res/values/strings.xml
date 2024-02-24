@@ -2,7 +2,7 @@
     <string name="app_name">android-dashboard-problem</string>
     <string name="dashboard">Dashboard</string>
     <string name="profile_picture">Profile Picture</string>
-    <string name="invoice_states">Invoice States</string>
+    <string name="invoice_stats">Invoice Stats</string>
     <string name="total_value">Total value ($%1$s)</string>
     <string name="job_stats">Job Stats</string>
     <string name="total_jobs">%1$s Jobs</string>

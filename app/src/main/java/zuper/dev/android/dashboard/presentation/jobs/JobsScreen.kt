@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.presentation.jobs.components.JobItemList
-import zuper.dev.android.dashboard.presentation.jobs.components.JobStatsContainer
+import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsContainer
 import zuper.dev.android.dashboard.presentation.jobs.components.TabRowItems
 import zuper.dev.android.dashboard.presentation.jobs.components.TopBar
 

@@ -1,4 +1,4 @@
-package zuper.dev.android.dashboard.presentation.jobs.components
+package zuper.dev.android.dashboard.presentation.dashboard.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

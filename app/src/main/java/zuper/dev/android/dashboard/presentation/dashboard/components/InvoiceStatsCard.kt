@@ -41,7 +41,7 @@ fun InvoiceStatesItem(
             .padding(vertical = 10.dp)
     ) {
         Text(
-            text = stringResource(R.string.invoice_states),
+            text = stringResource(R.string.invoice_stats),
             modifier = Modifier
                 .padding(start = 10.dp, bottom = 10.dp),
             style = MaterialTheme.typography.titleMedium
