@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zuper.dev.android.dashboard.R
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
@@ -41,7 +42,8 @@ fun JobStatsItem(
             text = stringResource(R.string.job_stats),
             modifier = Modifier
                 .padding(start = 10.dp, bottom = 10.dp),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(4.dp))

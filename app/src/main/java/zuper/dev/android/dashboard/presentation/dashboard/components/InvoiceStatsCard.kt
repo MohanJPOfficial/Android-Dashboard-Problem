@@ -45,7 +45,8 @@ fun InvoiceStatesItem(
             text = stringResource(R.string.invoice_stats),
             modifier = Modifier
                 .padding(start = 10.dp, bottom = 10.dp),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(4.dp))

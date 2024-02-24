@@ -44,7 +44,8 @@ fun GreetingItem(
         Column {
             Text(
                 text = "Hello, Groot!",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.W900
             )
 
             Spacer(modifier = Modifier.height(4.dp))

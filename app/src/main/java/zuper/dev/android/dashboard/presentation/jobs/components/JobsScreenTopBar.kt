@@ -50,7 +50,7 @@ fun JobsScreenTopBar(
                 text = stringResource(R.string.jobs_screen_header, jobCount),
                 modifier = Modifier
                     .padding(start = 10.dp),
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
         }
