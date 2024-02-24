@@ -11,33 +11,32 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.data.model.JobApiModel
 import zuper.dev.android.dashboard.domain.model.JobStatsModel
-import zuper.dev.android.dashboard.presentation.dashboard.SampleData
 import zuper.dev.android.dashboard.presentation.jobs.components.JobStatsItem
 import zuper.dev.android.dashboard.presentation.jobs.components.TopBar
 import zuper.dev.android.dashboard.presentation.util.DateUtils
+import zuper.dev.android.dashboard.ui.theme.Purple40
 
 @Composable
 fun JobsScreen(
     modifier: Modifier = Modifier,
-    jobsViewModel: JobsViewModel = hiltViewModel()
+    navHostController: NavHostController,
+    viewModel: JobsViewModel = hiltViewModel()
 ) {
-    val jobsStatsList by jobsViewModel.jobStateListFlow.collectAsStateWithLifecycle()
-    val jobList by jobsViewModel.jobListFlow.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Surface(
         color = MaterialTheme.colorScheme.onSecondary,
@@ -46,7 +45,10 @@ fun JobsScreen(
     ) {
         Column {
             TopBar(
-                jobCount = jobList.size
+                jobCount = uiState.totalJobCount,
+                onBackButtonClick = {
+                    navHostController.navigateUp()
+                }
             )
             Divider(modifier = Modifier
                 .fillMaxWidth(),
@@ -55,7 +57,7 @@ fun JobsScreen(
             JobStatsItem(
                 modifier = Modifier
                     .padding(10.dp),
-                jobStatsList = jobsStatsList
+                jobStatsList = uiState.jobStatsList.sortedBy { it.totalSum }
             )
             Divider(modifier = Modifier
                 .fillMaxWidth(),
@@ -63,9 +65,11 @@ fun JobsScreen(
             )
             TabRowItems(
                 modifier = modifier.fillMaxWidth(),
-                jobStatsList = jobsStatsList
+                jobStatsList = uiState.jobStatsList,
+                uiAction = viewModel.accept,
+                selectedTabIndex = uiState.selectedTabIndex
             )
-            JobItems(jobList = jobList)
+            JobItems(jobList = uiState.filteredJobList)
         }
     }
 }
@@ -73,37 +77,47 @@ fun JobsScreen(
 @Composable
 fun TabRowItems(
     modifier: Modifier = Modifier,
-    jobStatsList: List<JobStatsModel>
+    jobStatsList: List<JobStatsModel>,
+    uiAction: (JobsViewModel.UiAction) -> Unit,
+    selectedTabIndex: Int
 ) {
 
     if(jobStatsList.isEmpty())
         return
 
-    var selectedTabIndex by remember {
-        mutableIntStateOf(0)
-    }
-
     val inactiveColor = Color(0xFF777777)
     ScrollableTabRow(
+        indicator = { tabPositions ->
+            if (selectedTabIndex < tabPositions.size) {
+                TabRowDefaults.Indicator(
+                    modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                    color = Purple40
+                )
+            }
+        },
         selectedTabIndex = selectedTabIndex,
         contentColor = Color.Black,
+        edgePadding = 0.dp,
         modifier = modifier
-            .padding(vertical = 10.dp)
+            .fillMaxWidth()
     ) {
 
         jobStatsList.forEachIndexed { index, item ->
             Tab(
+                modifier = Modifier
+                    .padding(horizontal = 10.dp),
                 selected = selectedTabIndex == index,
                 selectedContentColor = Color.Black,
                 unselectedContentColor = inactiveColor,
                 onClick = {
-                    selectedTabIndex = index
+
+                    uiAction(JobsViewModel.UiAction.OnTabSelected(index, item.jobStatus))
                 },
             ) {
                 Text(
-                    text = "${item.jobStatus} (${item.totalSum})",
                     modifier = Modifier
-                        .padding(start = 10.dp),
+                        .padding(vertical = 15.dp),
+                    text = "${item.jobStatus.status} (${item.totalSum})",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )

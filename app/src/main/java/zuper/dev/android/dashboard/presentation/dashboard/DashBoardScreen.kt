@@ -1,5 +1,6 @@
 package zuper.dev.android.dashboard.presentation.dashboard
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,16 +14,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import zuper.dev.android.dashboard.presentation.dashboard.components.GreetingItem
 import zuper.dev.android.dashboard.presentation.dashboard.components.InvoiceStatesItem
 import zuper.dev.android.dashboard.presentation.dashboard.components.JobStatsItem
+import zuper.dev.android.dashboard.presentation.navigation.Screen
 
 @Composable
 fun DashBoardScreen(
     modifier: Modifier = Modifier,
+    navHostController: NavHostController,
     viewModel: DashboardViewModel = hiltViewModel()
 ) {
 
@@ -43,7 +46,10 @@ fun DashBoardScreen(
 
             JobStatsItem(
                 modifier = modifier
-                    .padding(10.dp),
+                    .padding(10.dp)
+                    .clickable {
+                        navHostController.navigate(route = Screen.JOBS.routeName)
+                    },
                 jobStatsList = jobStateList
             )
 
@@ -77,10 +83,4 @@ fun TopBar(
             color = Color.Gray
         )
     }
-}
-
-@Preview
-@Composable
-fun DashBoardScreenPreview() {
-    DashBoardScreen()
 }
